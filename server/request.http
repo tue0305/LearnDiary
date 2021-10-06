@@ -1,0 +1,55 @@
+
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+
+{
+    "username": "Alex",
+    "password": "Alex"
+}
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+
+{
+    "username": "thomas3",
+    "password": "thomas"
+    
+}
+
+###
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTVkNmU4MjM0OGE2ODUxZjc5ZGU4MjkiLCJpYXQiOjE2MzM1MTMwOTB9.YYOHb9XsKIjIBk7ySO6Q-IVb_89wn_skWIm2ddtJ0vk
+
+{
+    "title": "Python4",
+    "description": "tutorial",
+    "url": "google.com"
+    
+
+}
+
+### 
+GET http://localhost:5000/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTVkNTk5Yzg2M2VhY2M4ZWUwODc4NDUiLCJpYXQiOjE2MzM1Mzc0OTh9.9Ja_0lc-QEYTUUq1LK8Dqryl_MLqwKG-uI83nHsSkKE
+
+
+###
+PUT http://localhost:5000/api/posts/615d6eaf348a6851f79de82c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTVkNTk5Yzg2M2VhY2M4ZWUwODc4NDUiLCJpYXQiOjE2MzM1MTYwMTh9.LpyYnt0-UmLynVbLUV4VO9TewNKLqJhcaTElsI3ONXA
+
+{
+    "title": "Vue",
+    "description": "tdsadda",
+    "url": "Vue.org",
+    "status": "LEARNED"
+
+}
+
+########
+DELETE  http://localhost:5000/api/posts/615d653a2dfcee248a525c99
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTVkNTk5Yzg2M2VhY2M4ZWUwODc4NDUiLCJpYXQiOjE2MzM1Mzc0MjZ9.fIP_ServchnfpFiWCJtsxh5IlnR0n4Pdz-Ul_xnDREE

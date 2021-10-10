@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 // ROUTES
 const authRouter = require(`./routes/auth`);
@@ -25,7 +26,8 @@ connectDB();
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
-app.use(express.json()) // To parse the incoming requests with JSON payloads
+app.use(express.json())
+app.use(cors()) // To parse the incoming requests with JSON payloads
 
 // ### Using routes
 app.use(`/api/auth`, authRouter);

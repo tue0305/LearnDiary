@@ -23,7 +23,7 @@ function App() {
             render={(props) => <Auth {...props} authRoute="register" />}
           />
 
-          <ProtectedRoute
+          <ProtectedRoute 
             exact
             path="/dashboard"
             component={Dashboard}

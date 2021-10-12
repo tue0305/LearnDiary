@@ -2,7 +2,7 @@ import { Form, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { React, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/authContext";
-import AlertMessage from "../layouts/AlertMessage";
+import  AlertMessage  from "../layouts/AlertMessage";
 
 export const LoginForm = () => {
   // Context
@@ -29,10 +29,7 @@ export const LoginForm = () => {
 
     try {
       const loginData = await loginUser(loginForm)
-      if (loginData.success) {
-        history.push(`/dashboard`)
-      }
-      else {
+      if (!loginData.success)  {
         setAlert({ type: 'danger', message: loginData.message})
         setTimeout(() => setAlert(null), 5000);
         

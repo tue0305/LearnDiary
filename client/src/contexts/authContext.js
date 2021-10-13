@@ -1,11 +1,10 @@
-import { createContext, useReducer, useEffect  } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import { authReducer } from "../reducers/authReducer";
 
 import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "./constants";
 
-import Axios from "axios";
-import setAuthToken from '../utils/setAuthToken'
-
+import axios from "axios";
+import setAuthToken from "../utils/setAuthToken";
 
 export const AuthContext = createContext();
 
@@ -20,44 +19,46 @@ const AuthContextProvider = ({ children }) => {
   const loadUser = async (user) => {
     try {
       if (localStorage[LOCAL_STORAGE_TOKEN_NAME]) {
-        setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
+        setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME]);
       }
 
-      const response = await Axios.get(`${apiUrl}/auth`)
+      const response = await axios.get(`${apiUrl}/auth`);
       if (response.data.success) {
         dispatch({
-          type: 'SET_AUTH',
+          type: "SET_AUTH",
           payload: {
             isAuthenticated: true.valueOf,
-            user: response.data.user
-          }})
+            user: response.data.user,
+          },
+        });
       }
     } catch (error) {
-      localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
-      setAuthToken(null)
+      localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+      setAuthToken(null);
       dispatch({
-        type: 'SET_AUTH',
+        type: "SET_AUTH",
         payload: {
           isAuthenticated: false,
-          user: null
-        }})
-      return { success: false, message: error.message }; 
+          user: null,
+        },
+      });
+      return { success: false, message: error.message };
     }
-  }
+  };
 
-  useEffect(() => loadUser(), [])
+  useEffect(() => loadUser(), []);
 
   // Login
-  const loginUser = async userForm => {
+  const loginUser = async (userForm) => {
     try {
-      const response = await Axios.post(`${apiUrl}/auth/login`, userForm);
+      const response = await axios.post(`${apiUrl}/auth/login`, userForm);
       if (response.data.success) {
         localStorage.setItem(
           LOCAL_STORAGE_TOKEN_NAME,
-          response.data.accessToken);
+          response.data.accessToken
+        );
       }
-      await loadUser()
-
+      await loadUser();
 
       return response.data;
     } catch (error) {
@@ -65,35 +66,47 @@ const AuthContextProvider = ({ children }) => {
       else return { success: false, message: error.message };
     }
   };
-  
+
   // Register
-  const registerUser = async userForm => {
+  const registerUser = async (userForm) => {
     try {
-      const response = await Axios.post(`${apiUrl}/auth/register`, userForm);
+      const response = await axios.post(`${apiUrl}/auth/register`, userForm);
       if (response.data.success) {
         localStorage.setItem(
           LOCAL_STORAGE_TOKEN_NAME,
-          response.data.accessToken);
+          response.data.accessToken
+        );
       }
-      await loadUser()
-
-
+      await loadUser();
       return response.data;
+      
     } catch (error) {
       if (error.response.data) return error.response.data;
       else return { success: false, message: error.message };
     }
-    };
-    
-    // Context data
-    const authContextData = {loginUser, registerUser, authState}
+  };
 
-    // Return provider
-    return (
-        <AuthContext.Provider value={authContextData}>
-            {children}
-        </AuthContext.Provider>
-    )
+  // Logout
+  const logoutUser = () => {
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+    dispatch({
+      type: "SET_AUTH",
+      payload: {
+        isAuthenticated: false,
+        user: null,
+      },
+    });
+  };
+
+  // Context data
+  const authContextData = { loginUser, registerUser, logoutUser, authState };
+
+  // Return provider
+  return (
+    <AuthContext.Provider value={authContextData}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default AuthContextProvider
+export default AuthContextProvider;

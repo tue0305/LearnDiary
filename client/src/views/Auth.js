@@ -1,12 +1,15 @@
 import LoginForm from "../components/auth/LoginForm";
 import RegisterForm from "../components/auth/RegisterForm";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
 const Auth = ({ authRoute }) => {
-  const { authState: { authLoading, isAuthenticated } } = useContext(AuthContext);
+  const {
+    authState: {
+      authLoading, isAuthenticated }
+  } = useContext(AuthContext);
   
   
   let body

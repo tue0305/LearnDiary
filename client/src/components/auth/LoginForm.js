@@ -1,7 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { React, useState, useContext } from "react";
-import { AuthContext } from "../../contexts/authContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import  AlertMessage  from "../layouts/AlertMessage";
 
 export const LoginForm = () => {

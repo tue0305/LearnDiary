@@ -1,5 +1,5 @@
 import { Form, Button } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { React, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import  AlertMessage  from "../layouts/AlertMessage";
@@ -9,7 +9,6 @@ export const LoginForm = () => {
   const {loginUser} = useContext(AuthContext)
 
   // Router
-  const history = useHistory()
   
   // Local state
   const [loginForm, setLoginForm] = useState({

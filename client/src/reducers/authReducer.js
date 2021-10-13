@@ -9,10 +9,10 @@ export const authReducer = (state, action) => {
                 isAuthenticated,
                 user
             }
-            break;
+            
     
         default:
             return state
-            break;
+            
     }
 }

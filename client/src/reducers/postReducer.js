@@ -1,7 +1,8 @@
 import {
     POSTS_LOADED_SUCCESS,
-    POSTS_LOADED_FAIL,
-  } from "./constants";
+    POSTS_LOADED_FAIL
+} from "../contexts/constants";
+  
 export const postReducer = (state, action) => {
   const { type, payload } = action;
 
@@ -10,19 +11,19 @@ export const postReducer = (state, action) => {
       return {
         ...state,
         posts: payload,
-        postsLoaded: false,
+        postsLoading: false,
       };
-      break;
+      
     case POSTS_LOADED_FAIL:
       return {
         ...state,
         posts: [],
-        postsLoaded: false,
+        postsLoading: false,
       };
-      break;
+      
 
     default:
       return state;
-      break;
+      
   }
 };

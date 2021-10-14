@@ -2,12 +2,13 @@ import { PostContext } from "../contexts/PostContext";
 import { AuthContext } from "../contexts/AuthContext";
 
 import { useContext, useEffect } from "react";
-import {Spinner,Button, Card, Row, Col, Toast} from "react-bootstrap";
+import { Spinner, Button, Card, Row, Col, Toast } from "react-bootstrap";
 import addIcon from "../assets/plus-circle-fill.svg";
 import SinglePost from "../components/posts/SinglePost";
 import AddPostModal from "../components/posts/AddPostModal";
 
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import UpdatePostModal from "../components/posts/UpdatePostModal";
 
 const Dashboard = () => {
   // contexts
@@ -21,6 +22,8 @@ const Dashboard = () => {
     postState: { post, posts, postsLoading },
     getPosts,
     setShowAddPostModal,
+    showToast: { show, message, type },
+    setShowToast,
   } = useContext(PostContext);
 
   // Start: Get all posts
@@ -44,7 +47,7 @@ const Dashboard = () => {
             <Card.Text>
               Click the button below to track your first skill.
             </Card.Text>
-            <Button variant="primary">Learn Now!</Button>
+            <Button variant="primary" onClick={setShowAddPostModal.bind(this, true)} >Learn Now!</Button>
           </Card.Body>
         </Card>
       </>
@@ -79,16 +82,23 @@ const Dashboard = () => {
     <>
       {body}
       <AddPostModal />
-
+      {post !== null && <UpdatePostModal />}
       {/* After post is added, show toast. */}
       <Toast
-        show={true}
+        show={show}
         style={{ position: "fixed", top: "20%", right: "10px" }}
-        className="bg-success text-white "
+        className={`bg-${type} text-white `}
+        onClose={setShowToast.bind(this, {
+          show: false,
+          message: "",
+          type: null,
+        })}
+        dalay={3000}
+        autohide
       >
         <Toast.Body>
-          <strong> This is my toast. </strong>
-         </Toast.Body>
+          <strong> {message} </strong>
+        </Toast.Body>
       </Toast>
     </>
   );

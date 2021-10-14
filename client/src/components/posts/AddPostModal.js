@@ -4,14 +4,18 @@ import { PostContext } from "../../contexts/PostContext";
 
 const AddPostModal = () => {
   // contexts
-  const { showAddPostModal, setShowAddPostModal, addPost } = useContext(PostContext);
+  const {
+    showAddPostModal,
+    setShowAddPostModal,
+    addPost,
+    setShowToast } = useContext(PostContext);
 
   // State
   const [newPost, setNewPost] = useState({
     title: "",
     description: "",
     url: "",
-    status: "TO_LEARN",
+    status: "TO LEARN",
   });
 
   const { title, description, url } = newPost;
@@ -19,24 +23,23 @@ const AddPostModal = () => {
   const onChangeNewPostFrom = (event) =>
     setNewPost({ ...newPost, [event.target.name]: event.target.value });
 
-    const onSubmit = async event => {
-        event.preventDefault()
-        
-        const { success, message } = await addPost(newPost)
-        resetAddPostData()
-        
-  }
+  const onSubmit = async (event) => {
+    event.preventDefault();
 
-    const resetAddPostData = () => {
-        setNewPost({
-            title: "",
-            description: "",
-            url: "",
-            status: "TO LEARN",
-        })
-        setShowAddPostModal(false)
-    }
-  
+    const { success, message } = await addPost(newPost);
+    resetAddPostData();
+    setShowToast({ show: true, message, type: success ? "success" : "danger" });
+  };
+
+  const resetAddPostData = () => {
+    setNewPost({
+      title: "",
+      description: "",
+      url: "",
+      status: "TO LEARN",
+    });
+    setShowAddPostModal(false);
+  };
 
   return (
     <Modal show={showAddPostModal} onHide={resetAddPostData}>
@@ -44,7 +47,7 @@ const AddPostModal = () => {
         <Modal.Title> What do you want to learn?</Modal.Title>
       </Modal.Header>
 
-      <Form onSubmit={onSubmit} >
+      <Form onSubmit={onSubmit}>
         <Modal.Body>
           <Form.Group>
             <Form.Control

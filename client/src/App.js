@@ -1,12 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AuthContextProvider from "./contexts/AuthContext";
 import Auth from "./views/Auth";
 import Dashboard from "./views/Dashboard";
 import Landing from "./components/layouts/Landing";
 import ProtectedRoute from "./components/routing/ProtectedRoute";
 import About from "./views/About";
 import PostContextProvider from "./contexts/PostContext";
+import AuthContextProvider from "./contexts/AuthContext";
+
 
 function App() {
   return (

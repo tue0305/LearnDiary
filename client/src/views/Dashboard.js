@@ -64,7 +64,7 @@ const Dashboard = () => {
         </Row>
         {/* Open Add post Modal */}
         <OverlayTrigger
-          placment="left"
+          placement="left"
           overlay={<Tooltip>Add a new course! </Tooltip>}
         >
           <Button
